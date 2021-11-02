@@ -10,7 +10,7 @@ client.on('ready', () => {
 });
 
 client.on('guildMemberAdd', member => {
-  member.guild.channels.cache.get('904977988947423235').send('hei', {files: ['./denah1.jpg']})
+  member.guild.channels.cache.get('904977988947423235').send('hei')
 });
 
 client.on('message', message => {
