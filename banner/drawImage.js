@@ -1,5 +1,5 @@
 const { MessageAttachment } = require('discord.js')
-const {createCanvas} = require('canvas')
+const {createCanvas, registerFont} = require('canvas')
 const Canvas = require('canvas')
 const Path = require('path')
 
@@ -40,10 +40,18 @@ module.exports = async (imageUrl, member) => {
     )
 
 
+    // Function for directing to font file
+    // const fontFile = (name) => {
+    //     Path.join(__dirname, '../files/font/', name)
+    // }
+
+    // Load font
+    // registerFont(fontFile('Montserrat-SemiBold.ttf'), {family: "Montserrat", weight: '600'})
+
     // Option for font
     let fontSize = 30
     let lineHeight = 10
-    ctx.font = `${fontSize}px Impact`
+    ctx.font = `600 ${fontSize}px Montserrat`
     ctx.fillStyle = '#fff'
 
     // Option for text position (recommended 30)
