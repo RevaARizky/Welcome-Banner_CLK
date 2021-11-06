@@ -1,4 +1,4 @@
-const welcomeBanner = require('./banner/drawImage')
+const WelcomeBanner = require('./banner/drawImage')
 const Discord = require('discord.js');
 require('dotenv').config()
 
@@ -13,7 +13,7 @@ client.on('guildMemberAdd', member => {
   const img = member.user.displayAvatarURL({format: 'png'})
 
   // Calling function for drawing image
-  welcomeBanner.drawImage(img, member)
+  WelcomeBanner(img, member)
 });
 
 // Log our bot in

@@ -3,7 +3,7 @@ const {createCanvas} = require('canvas')
 const Canvas = require('canvas')
 const Path = require('path')
 
-module.exports.drawImage = async (imageUrl, member) => {
+module.exports = async (imageUrl, member) => {
     
     // Canvas Option
     const canvasWidth = 500
@@ -70,7 +70,7 @@ module.exports.drawImage = async (imageUrl, member) => {
     const attachment = new MessageAttachment(canvas.toBuffer())
 
     // Send to discord from discord bot
-    member.guild.channels.cache.get('904977988947423235').send('test', attachment)
+    member.guild.channels.cache.get('904977988947423235').send('Welcome To Cafe La Kocak', attachment)
 
 
     // console.log area
