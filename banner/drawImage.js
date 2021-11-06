@@ -12,6 +12,9 @@ module.exports = async (imageUrl, member) => {
     // Initiate canvas
     const canvas = createCanvas(canvasWidth, canvasHeight)
     const ctx = canvas.getContext('2d')
+    
+    // Save context so we can undo later
+    ctx.save();
 
     // Load background image
     const bgImage = Path.join(__dirname, '../files/images/background/bg.jpg')
@@ -28,16 +31,25 @@ module.exports = async (imageUrl, member) => {
     const avatarWidth = 100
     const avatarHeight = 100
     const avatarOffsetY = -50
+    const aX = canvasWidth / 2
+    const aY = canvasHeight / 2
+
+    ctx.beginPath()
+    ctx.arc(aX, aY + avatarOffsetY, aX, 0, 2 * Math.PI)
+
+    ctx.clip()
 
     // Load user avatar
     const loadAvatar = await Canvas.loadImage(imageUrl)
     ctx.drawImage(
         loadAvatar, // Image user avatar
-        (canvasWidth / 2) - (avatarWidth / 2), // Image Placement for X
-        (canvasHeight / 2) - (avatarHeight / 2) + avatarOffsetY, // Image Placement for Y
+        aX - (avatarWidth / 2), // Image Placement for X
+        aY - (avatarHeight / 2) + avatarOffsetY, // Image Placement for Y
         avatarWidth, // Image width size
         avatarHeight // Image height size
     )
+
+    ctx.restore()
 
 
     // Function for directing to font file
@@ -47,31 +59,43 @@ module.exports = async (imageUrl, member) => {
 
     // Load font
     // registerFont(fontFile('Montserrat-SemiBold.ttf'), {family: "Montserrat", weight: '600'})
-
-    // Option for font
-    let fontSize = 30
-    let lineHeight = 10
-    ctx.font = `600 ${fontSize}px Montserrat`
-    ctx.fillStyle = '#fff'
-
-    // Option for text position (recommended 30)
+    
+    // Option for text position (recommended >30)
     let textOffsetY = 40
     ctx.textAlign = 'center'
+    
+    // Option for font global
+    ctx.fillStyle = '#fff'
+    let lineHeight = 10
+
+    // Option for font title
+    let fontSize = 35
+    ctx.font = `600 ${fontSize}px Montserrat`
+
+    // Print Title
+    ctx.fillText(
+        "Welcome",
+        (canvasWidth / 2),
+        (canvasHeight / 2) + textOffsetY
+    )
 
     // Option for text content
-    let textUserName = `Welcome ${member.user.tag}!`
+    let textUserName = `${member.user.tag}!`
     let textUserCount = `Kamu adalah member ke ${member.guild.memberCount}`
+
+    fontSize = 28
+    ctx.font = `${fontSize}px Montserrat`
 
     // Print Username and User Count
     ctx.fillText(
         textUserName, // Text Content
         (canvasWidth / 2), // Text Placement for X
-        (canvasHeight / 2) + textOffsetY // Text Placement for Y
+        (canvasHeight / 2) + textOffsetY + lineHeight + (fontSize * 1)// Text Placement for Y
     )
     ctx.fillText(
         textUserCount, // Text Content
         (canvasWidth / 2), // Text Placement for X
-        (canvasHeight / 2) + textOffsetY + lineHeight + fontSize // Text Placement for Y
+        (canvasHeight / 2) + textOffsetY + lineHeight + (fontSize * 2) // Text Placement for Y
     )
 
     // Generate canvas to buffer
