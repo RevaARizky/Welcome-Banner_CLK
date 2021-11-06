@@ -1,6 +1,7 @@
 const { MessageAttachment } = require('discord.js')
 const {createCanvas} = require('canvas')
 const Canvas = require('canvas')
+const Path = require('path')
 
 module.exports.drawImage = async (imageUrl, member) => {
     
@@ -13,7 +14,8 @@ module.exports.drawImage = async (imageUrl, member) => {
     const ctx = canvas.getContext('2d')
 
     // Load background image
-    const loadBg = await Canvas.loadImage('Estetik_background.jpg')
+    const bgImage = Path.join(__dirname, '../files/images/background/bg.jpg')
+    const loadBg = await Canvas.loadImage(bgImage)
     ctx.drawImage(
         loadBg, // Image for background
         0, // Image Placement for X
