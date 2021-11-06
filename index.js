@@ -1,24 +1,20 @@
+const welcomeBanner = require('./banner/drawImage')
 const Discord = require('discord.js');
 require('dotenv').config()
 
 const client = new Discord.Client();
-// The token of your bot
+// Get token from .env
 const token = process.env.BOT_TOKEN;
 
-client.on('ready', () => {
-//   console.log(client);
-});
-
+// Event triggered when someone join server
 client.on('guildMemberAdd', member => {
-  member.guild.channels.cache.get('904977988947423235').send('hei')
-});
 
-client.on('message', message => {
-    if (message.content == 'test') {    
-        message.channel.send('test juga')
-        console.log('someone just test')
-    }
-})
+  // Get image from user avatar
+  const img = member.user.displayAvatarURL({format: 'png'})
+
+  // Calling function for drawing image
+  welcomeBanner.drawImage(img, member)
+});
 
 // Log our bot in
 client.login(token);
