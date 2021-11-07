@@ -74,9 +74,9 @@ module.exports = async (imageUrl, member) => {
 
     // Print Title
     ctx.fillText(
-        "Welcome",
-        (canvasWidth / 2),
-        (canvasHeight / 2) + textOffsetY
+        "Welcome", // Text Content
+        (canvasWidth / 2), // Text Placement for X
+        (canvasHeight / 2) + textOffsetY // Text Placement for Y
     )
 
     // Option for text content
@@ -102,9 +102,8 @@ module.exports = async (imageUrl, member) => {
     const attachment = new MessageAttachment(canvas.toBuffer())
 
     // Send to discord from discord bot
-    member.guild.channels.cache.get('904977988947423235').send('Welcome To Cafe La Kocak', attachment)
+    member.guild.channels.cache.get('904977988947423235').send(`Welcome To ${member.guild.name}`, attachment)
 
 
     // console.log area
-
 }
