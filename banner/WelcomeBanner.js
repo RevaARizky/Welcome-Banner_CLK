@@ -3,8 +3,14 @@ const {createCanvas, registerFont} = require('canvas')
 const Canvas = require('canvas')
 const Path = require('path')
 
-module.exports = async (imageUrl, member) => {
+module.exports = async (imageUrl, member, message) => {
     
+    let data
+
+    member === null ? data = message : data = member
+
+    // console.log(data.sendText())
+
     // Canvas Option
     const canvasWidth = 500
     const canvasHeight = 300
@@ -51,7 +57,6 @@ module.exports = async (imageUrl, member) => {
 
     ctx.restore()
 
-
     // Function for directing to font file
     // const fontFile = (name) => {
     //     Path.join(__dirname, '../files/font/', name)
@@ -80,8 +85,8 @@ module.exports = async (imageUrl, member) => {
     )
 
     // Option for text content
-    let textUserName = `${member.user.tag}!`
-    let textUserCount = `Kamu adalah member ke ${member.guild.memberCount}`
+    let textUserName = `${data.userName}!`
+    let textUserCount = `Kamu adalah member ke ${data.userCount}`
 
     fontSize = 28
     ctx.font = `${fontSize}px Montserrat`
@@ -102,8 +107,5 @@ module.exports = async (imageUrl, member) => {
     const attachment = new MessageAttachment(canvas.toBuffer())
 
     // Send to discord from discord bot
-    member.guild.channels.cache.get('904977988947423235').send(`Welcome To ${member.guild.name}`, attachment)
-
-
-    // console.log area
+    data.sendText.send(`Welcome To ${data.guildName}`, {files: [attachment]})
 }
