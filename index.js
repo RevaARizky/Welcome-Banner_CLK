@@ -40,4 +40,4 @@ client.on('message', message => {
 })
 
 // Log our bot in
-client.login(token);
+client.login('OTA0OTc0OTc4MTMzNDE4MDE0.YYDVoA.yYK9Ie5oVk-Kp6Sp0wNZr75zOZs');
